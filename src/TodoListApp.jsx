@@ -24,6 +24,17 @@ function TodoListApp() {
     }
 
     const [todos, setTodos] = useState(initTodos); //할일 목록: 기본값 빈 리스트
+    const [bgColor, setBgColor] = useState("white");
+    useEffect(() => {
+        document.body.style.backgroundColor = bgColor;
+    }, [bgColor]);
+
+    const changeColor = () => {
+        const randomColor =
+            "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, "0");
+
+        setBgColor(randomColor);
+    };
 
     //todos가 바뀌면, LocalStroage에 저장하자
     useEffect(() => {
@@ -60,11 +71,18 @@ function TodoListApp() {
             )
         )
     }
+
     return (
         <div className="todo">
+            <button onClick={changeColor}>배경색 변경</button>
             <TodoHeader />
             <TodoAdder addTodo={addTodo} />
-            <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} editTodo={editTodo} />
+            <TodoList
+                todos={todos}
+                toggleTodo={toggleTodo}
+                deleteTodo={deleteTodo}
+                editTodo={editTodo}
+            />
         </div>
     )
 }
