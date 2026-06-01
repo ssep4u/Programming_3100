@@ -41,5 +41,5 @@ npm create vite@latest .
     <Link to="/"></Link>
 ```
 - `useNavigate()`
-- 3114 전유림: 날씨 표시, 폰트 지정
-- `npm install styled-components` 필요
+- 1-9 날씨 ★★★★ : `npm install styled-components` 필요
+- 3-1 추가할 때 맨 위에 표시 하자 ★ : addTodo() 수정

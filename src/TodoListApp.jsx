@@ -33,10 +33,9 @@ function TodoListApp() {
 
     const addTodo = (text) => setTodos((todos) => [
         //이전 todos 복사하자
-        ...todos,
+        new Todo(text),...todos
         //newTodo 만들자
         //이전 todos에 추가하자
-        new Todo(text)
     ]);
     // const addTodo = (text) => setTodos((todos) => [...todos, new Todo(text)]
     const toggleTodo = (id) => {
