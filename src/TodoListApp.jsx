@@ -31,11 +31,13 @@ function TodoListApp() {
     }, [todos]);     //[](mount할 때 한번 실행), [todos]에 있는 state가 바뀌면, 그 앞 함수정의 를 호출하자
 
     const addTodo = (text) => setTodos((todos) => [
-        //이전 todos 복사하자
-        ...todos,
-        //newTodo 만들자
         //이전 todos에 추가하자
-        new Todo(text)
+        new Todo(text),
+
+        //이전 todos 복사하자
+        ...todos
+        //newTodo 만들자
+        
     ]);
     // const addTodo = (text) => setTodos((todos) => [...todos, new Todo(text)]
     const toggleTodo = (id) => {
