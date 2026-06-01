@@ -16,6 +16,10 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
             setIsEditing(false);
         }
     }
+    const escEditText = () => {
+        setEditText(todo.text); // 원래 텍스트로 되돌리기
+        setIsEditing(false);
+    }
     return (
         // todo.isCompleted가 true 면 " todo__item--complete", false 면 ""
         <li className={`todo__item${todo.isCompleted ? " todo__item--complete" : ""}`}>
@@ -35,7 +39,11 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
                     value={editText}
                     onChange={(event) => setEditText(event.target.value)}
                     //enter 치면 handleEditText() 실행하자
-                    onKeyDown={(event) => { if (event.key === 'Enter') handleEditText(); }}
+                    onKeyDown={(event) => {
+                        if (event.key === 'Enter') handleEditText();
+
+                        if (event.key === 'Escape') escEditText();
+                    }}
                     autoFocus
                 />
             }

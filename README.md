@@ -41,3 +41,4 @@ npm create vite@latest .
     <Link to="/"></Link>
 ```
 - `useNavigate()`
+- 3112 이세현  2-1	수정하다가 ESC 누르면, 수정 취소	★	<Checkbox onKeyDown />
