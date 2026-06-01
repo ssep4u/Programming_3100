@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import CounterApp from './CounterApp.jsx'
 import TodoListApp from './TodoListApp.jsx'
+import './style.css'
 
 function ButtonPageApp({ setPage }) {
     return (
