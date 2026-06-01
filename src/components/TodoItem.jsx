@@ -5,6 +5,13 @@ import Button from './Button.jsx'
 export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
     const [editText, setEditText] = useState(todo.text);    //수정한 text
     const [isEditing, setIsEditing] = useState(false);      //수정중인지 아닌지
+    const createdDate = new Date(todo.createdAt).toLocaleString('ko-KR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
     const handleEditText = () => {
         if (!isEditing) {               //edit 시작
             setEditText(todo.text);
@@ -19,6 +26,9 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
     return (
         // todo.isCompleted가 true 면 " todo__item--complete", false 면 ""
         <li className={`todo__item${todo.isCompleted ? " todo__item--complete" : ""}`}>
+            <div className="todo__item--meta">
+                <span className="todo__date">생성: {createdDate}</span>
+            </div>
             {/* 수정중이 아니면, Checkbox */}
             {!isEditing &&
                 <Checkbox

@@ -3,6 +3,7 @@ import './todolist.css'
 // import Button from './components/Button.jsx'
 // import TodoItemEmpty from './components/TodoItemEmpty.jsx'
 import TodoHeader from './components/TodoHeader.jsx'
+import TodoDate from './components/TodoDate.jsx'
 // import Checkbox from './components/Checkbox.jsx'
 import TodoAdder from './components/TodoAdder.jsx'
 // import TodoItem from './components/TodoItem.jsx'
@@ -13,6 +14,7 @@ class Todo {
         this.id = Date.now();       //할일 고유 id: 만든시각. new Date().getTime()
         this.text = text;           //할일 내용
         this.isCompleted = false;   //완료 여부: 기본값 false
+        this.createdAt = new Date().toISOString(); //생성 시각
     }
 }
 const TODOS_STORAGE_KEY = "todos";
@@ -63,6 +65,7 @@ function TodoListApp() {
     return (
         <div className="todo">
             <TodoHeader />
+            <TodoDate />
             <TodoAdder addTodo={addTodo} />
             <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} editTodo={editTodo} />
         </div>

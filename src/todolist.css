@@ -61,6 +61,23 @@
     text-decoration: line-through;
 }
 
+.todo__date--header {
+    margin: 0 0 16px;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.todo__item--meta {
+    width: 100%;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.todo__date {
+    display: inline-block;
+}
+
 /* .todo__item--complete 밑에 .todo__label을 흐리게, 취소선하자
 
 .todo__item--complete > .todo__label: 바로 아래 자식
