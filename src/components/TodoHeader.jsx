@@ -1,4 +1,3 @@
-import Button from './Button.jsx'
 import { useState } from 'react'
 
 export default function TodoHeader({ changeBgColor, currentBgColor }) {
