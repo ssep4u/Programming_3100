@@ -85,8 +85,8 @@ export default function Weather() {
 function getWeather(setWeatherState) {
     const cityName = 'Seoul';
     const apiKey = import.meta.env.VITE_WEATHER_KEY;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
-
+    const url =
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&lang=kr`;
     //위에서 만든 상태 변수에 값을 전달
     axios
         .get(url)
