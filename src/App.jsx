@@ -1,11 +1,29 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+import bgm from './assets/redred.mp3'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef(null)
+
+  const handleMusicToggle = () => {
+    const audio = audioRef.current
+
+    if (!audio) return
+
+    if (isPlaying) {
+      audio.pause()
+      setIsPlaying(false)
+      return
+    }
+
+    audio.play()
+    setIsPlaying(true)
+  }
 
   return (
     <>
@@ -26,6 +44,10 @@ function App() {
           onClick={() => setCount((count) => count + 1)}
         >
           Count is {count}
+        </button>
+        <audio ref={audioRef} src={bgm} loop />
+        <button className="music-button" onClick={handleMusicToggle}>
+          {isPlaying ? '배경음악 정지' : '배경음악 재생'}
         </button>
       </section>
 
