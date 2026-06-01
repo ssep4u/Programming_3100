@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import './todolist.css'
-// import Button from './components/Button.jsx'
-// import TodoItemEmpty from './components/TodoItemEmpty.jsx'
 import TodoHeader from './components/TodoHeader.jsx'
-// import Checkbox from './components/Checkbox.jsx'
 import TodoAdder from './components/TodoAdder.jsx'
-// import TodoItem from './components/TodoItem.jsx'
 import TodoList from './components/TodoList.jsx'
+import Confetti from 'react-confetti';
 
 class Todo {
     constructor(text) {
@@ -38,12 +35,24 @@ function TodoListApp() {
         new Todo(text)
     ]);
     // const addTodo = (text) => setTodos((todos) => [...todos, new Todo(text)]
+    const [showConfetti, setShowConfetti] = useState(false);
     const toggleTodo = (id) => {
         setTodos(
-            // todos에서 그 id에 해당하는 todo 찾고 그 todo의 isCompleted를 true -> false, false -> true
-            todos.map((todo) =>
-                todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-            )
+            todos.map((todo) => {
+                // 완료 안 된 상태 -> 완료 상태로 바뀌는 순간
+                if (todo.id === id && !todo.isCompleted) {
+                    setShowConfetti(true);
+
+                    // 3초 뒤 confetti 제거
+                    setTimeout(() => {
+                        setShowConfetti(false);
+                    }, 7000);
+                }
+
+                return todo.id === id
+                    ? { ...todo, isCompleted: !todo.isCompleted }
+                    : todo;
+            })
         )
     }
     const deleteTodo = (id) => {
@@ -62,6 +71,7 @@ function TodoListApp() {
     }
     return (
         <div className="todo">
+            {showConfetti && <Confetti />}
             <TodoHeader />
             <TodoAdder addTodo={addTodo} />
             <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} editTodo={editTodo} />
