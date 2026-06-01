@@ -41,4 +41,4 @@ npm create vite@latest .
     <Link to="/"></Link>
 ```
 - `useNavigate()`
-- 3102 김민재 1-1	날짜 표시?	★	Date, 컴포넌트 렌더링
+- 3102 김민재 1-4	font	★	CSS, Google Fonts, theme state
