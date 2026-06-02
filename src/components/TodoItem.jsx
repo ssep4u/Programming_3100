@@ -35,7 +35,10 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
                     value={editText}
                     onChange={(event) => setEditText(event.target.value)}
                     //enter 치면 handleEditText() 실행하자
-                    onKeyDown={(event) => { if (event.key === 'Enter') handleEditText(); }}
+                    onKeyDown={(event) => { 
+                        if (event.key === 'Enter') handleEditText(); 
+                        if (event.key === 'Escape') setIsEditing(false);
+                    }}
                     autoFocus
                 />
             }

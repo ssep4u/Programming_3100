@@ -43,3 +43,4 @@ npm create vite@latest .
 - `useNavigate()`
 - 3105 김주람   1-1	날짜 표시?	★	Date, 컴포넌트 렌더링
 - 3105 김주람   1-4	font	★	CSS, Google Fonts, theme state
+- 3105 김주람   2-1	수정하다가 ESC 누르면, 수정 취소	★	Checkbox onKeyDown
