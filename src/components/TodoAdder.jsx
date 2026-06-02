@@ -15,18 +15,16 @@ export default function TodoAdder({ addTodo }) {
     }
 
     return (
-        <>
-            <form className="todo__form" onSubmit={handleSubmit}>
-                {/* 사용자가 입력할 때 setInputTodo() 호출 돼서, inputTodo값에 설정 */}
-                <input
-                    type="text"
-                    placeholder="할 일을 입력하세요."
-                    className='todo__input'
-                    value={inputTodo}
-                    onChange={(event) => setInputTodo(event.target.value)}
-                />
-                <Button type="submit" className='todo__button todo__button--add'>Add</Button>
-            </form>
-        </>
+        <form className="todo__form" onSubmit={handleSubmit}>
+            {/* 사용자가 입력할 때 setInputTodo() 호출 돼서, inputTodo값에 설정 */}
+            <input
+                type="text"
+                placeholder="할 일을 입력하세요."
+                className='todo__input'
+                value={inputTodo}
+                onChange={(event) => setInputTodo(event.target.value)}
+            />
+            <Button type="submit" className='todo__button todo__button--add'>Add</Button>
+        </form>
     )
 }
