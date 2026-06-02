@@ -25,7 +25,7 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
                     id={todo.id}
                     checked={todo.isCompleted}
                     onChange={() => toggleTodo(todo.id)}
-                >{todo.text}</Checkbox>
+                >[{todo.priority ?? 3}순위] {todo.text}</Checkbox>
             }
             {/* 수정중이면 input */}
             {isEditing &&

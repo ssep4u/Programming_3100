@@ -9,9 +9,10 @@ import TodoAdder from './components/TodoAdder.jsx'
 import TodoList from './components/TodoList.jsx'
 
 class Todo {
-    constructor(text) {
+    constructor(text, priority) {
         this.id = Date.now();       //할일 고유 id: 만든시각. new Date().getTime()
         this.text = text;           //할일 내용
+        this.priority = priority;   //우선순위: 낮은 숫자가 먼저
         this.isCompleted = false;   //완료 여부: 기본값 false
     }
 }
@@ -24,18 +25,19 @@ function TodoListApp() {
     }
 
     const [todos, setTodos] = useState(initTodos); //할일 목록: 기본값 빈 리스트
+    const sortedTodos = [...todos].sort((a, b) => (a.priority ?? 3) - (b.priority ?? 3));
 
     //todos가 바뀌면, LocalStroage에 저장하자
     useEffect(() => {
         localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos));
     }, [todos]);     //[](mount할 때 한번 실행), [todos]에 있는 state가 바뀌면, 그 앞 함수정의 를 호출하자
 
-    const addTodo = (text) => setTodos((todos) => [
+    const addTodo = (text, priority) => setTodos((todos) => [
         //이전 todos 복사하자
         ...todos,
         //newTodo 만들자
         //이전 todos에 추가하자
-        new Todo(text)
+        new Todo(text, priority)
     ]);
     // const addTodo = (text) => setTodos((todos) => [...todos, new Todo(text)]
     const toggleTodo = (id) => {
@@ -64,7 +66,7 @@ function TodoListApp() {
         <div className="todo">
             <TodoHeader />
             <TodoAdder addTodo={addTodo} />
-            <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} editTodo={editTodo} />
+            <TodoList todos={sortedTodos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} editTodo={editTodo} />
         </div>
     )
 }

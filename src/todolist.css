@@ -21,6 +21,14 @@
     margin-right: 10px;
     flex: 1;    /* flex일 때 남은 공간 다 차지 */
 }
+.todo__priority {
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-right: 10px;
+    background-color: #fff;
+}
 .todo__button {
     padding: 10px;
     border: none;
