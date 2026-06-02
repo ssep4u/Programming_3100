@@ -13,6 +13,7 @@ class Todo {
         this.id = Date.now();       //할일 고유 id: 만든시각. new Date().getTime()
         this.text = text;           //할일 내용
         this.isCompleted = false;   //완료 여부: 기본값 false
+        this.completedAt = null;
     }
 }
 const TODOS_STORAGE_KEY = "todos";
@@ -24,6 +25,23 @@ function TodoListApp() {
     }
 
     const [todos, setTodos] = useState(initTodos); //할일 목록: 기본값 빈 리스트
+
+    useEffect(() => {
+        const Now = Date.now();
+        const One_Day = 24 * 60 * 60 * 1000; 
+
+        const filterdTodos = todos.filter((todo) => {
+            if (todo.isCompleted && todo.completedAt) { 
+                const isExpired = Now - todo.completedAt > One_Day; // 현재 시간 - 완료 시간이 24시간을 넘으면 true
+                return !isExpired; // 하루가 안지났으면 true, 지났으면 false로 삭제
+            }
+            return true; // 완료 안한 일들은 true로 유지
+        });
+
+        if (filterdTodos.length !== todos.length) {
+            setTodos(filterdTodos);
+        }
+    }, []);
 
     //todos가 바뀌면, LocalStroage에 저장하자
     useEffect(() => {
@@ -37,15 +55,24 @@ function TodoListApp() {
         //이전 todos에 추가하자
         new Todo(text)
     ]);
-    // const addTodo = (text) => setTodos((todos) => [...todos, new Todo(text)]
+
     const toggleTodo = (id) => {
-        setTodos(
-            // todos에서 그 id에 해당하는 todo 찾고 그 todo의 isCompleted를 true -> false, false -> true
-            todos.map((todo) =>
-                todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-            )
-        )
-    }
+        setTodos((todos) =>
+            todos.map((todo) => {
+                if (todo.id === id) {
+                    const nextCompleted = !todo.isCompleted;
+                    return {
+                        ...todo,
+                        isCompleted: nextCompleted,
+                        // 체크를 눌러 완료로 바꾸면 현재 시간 기록, 체크를 풀면 다시 null로 처음 상태로
+                        completedAt: nextCompleted ? Date.now() : null
+                    };
+                }
+                return todo;
+            })
+        );
+    };
+
     const deleteTodo = (id) => {
         //id가 같지 않은 todo만 복사하자(filter())
         setTodos(

@@ -42,3 +42,4 @@ npm create vite@latest .
 ```
 - `useNavigate()`
 - 3113 장시후 1-2	배경색	★	useState, CSS class/style 변경
+- 3113 장시후 3-10	완료한 것 하루 지나면 삭제	★★★	useEffect, 날짜 비교, 자동 정리
