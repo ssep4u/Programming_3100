@@ -52,7 +52,8 @@
     flex-grow: 1;
 }
 .todo__button--edit,
-.todo__button--delete {
+.todo__button--delete,
+.todo__button--pin {
     font-size: 0.8rem;
     padding: 6px;
 }

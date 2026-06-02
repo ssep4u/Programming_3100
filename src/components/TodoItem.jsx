@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Checkbox from './Checkbox.jsx'
 import Button from './Button.jsx'
 
-export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
+export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo, pinTodo }) {
     const [editText, setEditText] = useState(todo.text);    //수정한 text
     const [isEditing, setIsEditing] = useState(false);      //수정중인지 아닌지
     const handleEditText = () => {
@@ -40,12 +40,14 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
                 />
             }
 
+            <span>{new Date(todo.id).toLocaleString()}</span>
             <Button className='todo__button todo__button--edit'
                 onClick={handleEditText}>{!isEditing ? "✏️" : "💾"}</Button>
             <Button
                 className='todo__button todo__button--delete'
                 onClick={() => deleteTodo(todo.id)}
             >❌</Button>
+            <Button className='todo__button todo__button--pin' onClick={() => pinTodo(todo.id)}>📌</Button>
         </li>
     )
 }
