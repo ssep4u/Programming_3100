@@ -12,7 +12,9 @@ class Todo {
     constructor(text) {
         this.id = Date.now();       //할일 고유 id: 만든시각. new Date().getTime()
         this.text = text;           //할일 내용
-        this.isCompleted = false;   //완료 여부: 기본값 false
+        this.isCompleted = false;   //할일 완료 여부
+        this.createAt = new Date(); //생성 시간
+        this.completedAt = null;    //완료 시간
     }
 }
 const TODOS_STORAGE_KEY = "todos";
@@ -41,9 +43,12 @@ function TodoListApp() {
     const toggleTodo = (id) => {
         setTodos(
             // todos에서 그 id에 해당하는 todo 찾고 그 todo의 isCompleted를 true -> false, false -> true
-            todos.map((todo) =>
-                todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-            )
+            todos.map((todo) => {
+                if (todo.id === id) {
+                    return { ...todo, isCompleted: !todo.isCompleted, completedAt: todo.isCompleted ? null : new Date() };
+                }
+                return todo;
+            })
         )
     }
     const deleteTodo = (id) => {

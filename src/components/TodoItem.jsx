@@ -16,6 +16,14 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
             setIsEditing(false);
         }
     }
+    const timeDiff = (createAt, completedAt) => {
+        const timeDiff = new Date(completedAt) - new Date(createAt);
+        const seconds = Math.floor(timeDiff / 1000);
+        const minutes = Math.floor(timeDiff / 1000 / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        return `${days > 0 ? `${days}일` : hours > 0 ? `${hours}시간` : minutes > 0 ? `${minutes}분` : `${seconds}초`} 만에 완료`;
+    }
     return (
         // todo.isCompleted가 true 면 " todo__item--complete", false 면 ""
         <li className={`todo__item${todo.isCompleted ? " todo__item--complete" : ""}`}>
@@ -39,7 +47,7 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo, editTodo }) {
                     autoFocus
                 />
             }
-
+            {todo.isCompleted && <span className="todo__completed-time">{timeDiff(todo.createAt, todo.completedAt)}</span>}
             <Button className='todo__button todo__button--edit'
                 onClick={handleEditText}>{!isEditing ? "✏️" : "💾"}</Button>
             <Button

@@ -60,7 +60,10 @@
     color: #999;
     text-decoration: line-through;
 }
-
+.todo__completed-time {
+    font-size: 0.8rem;
+    color: #666;
+}
 /* .todo__item--complete 밑에 .todo__label을 흐리게, 취소선하자
 
 .todo__item--complete > .todo__label: 바로 아래 자식
