@@ -1,0 +1,43 @@
+.container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+.introMsg {
+    justify-content: center;
+}
+
+
+.bgChange {
+    display: inline;
+    
+    
+}
+
+.w {
+    width: 100px;
+    height: 50px;
+    margin-right: 40px;
+}
+
+.p {
+    width: 100px;
+    height: 50px;
+    margin-right: 40px;
+}
+
+.b {
+    width: 100px;
+    height: 50px;
+    margin-right: 40px;
+}
+
+.r  {
+    width: 100px;
+    height: 50px;
+    margin-right: 40px;
+}
+

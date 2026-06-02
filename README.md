@@ -41,3 +41,5 @@ npm create vite@latest .
     <Link to="/"></Link>
 ```
 - `useNavigate()`
+- 3100 이민준 1-1 날짜 표시? 별 Date, 컴포넌트
+- 3310 이민준 1-1 Background 변경 페이지 개발
