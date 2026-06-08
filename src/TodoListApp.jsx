@@ -64,11 +64,11 @@ function TodoListApp() {
 
 
     const addTodo = (text, priority) => setTodos((todos) => [
-        //이전 todos 복사하자
-        ...todos,
         //newTodo 만들자
         //이전 todos에 추가하자
-        new Todo(text, priority)
+        new Todo(text, priority),
+        //이전 todos 복사하자
+        ...todos,
     ]);
     // const addTodo = (text) => setTodos((todos) => [...todos, new Todo(text)]);
 
@@ -108,6 +108,10 @@ function TodoListApp() {
             )
         )
     }
+    const allDeleteTodo = () => {
+        setTodos([])
+    }
+
 
     const [bgColor, setBgColor] = useState(() => {
         return localStorage.getItem("bgColor") || "#ffffff";
@@ -146,7 +150,9 @@ function TodoListApp() {
                     }}
                 />
             </div>
+
             <TodoProgress todos={todos} />
+            <Button className='todo__button todo__button--all_delete' onClick={allDeleteTodo}>전체 삭제</Button>
             <TodoList todos={sortedTodos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} editTodo={editTodo} pinTodo={pinTodo} />
             <TodoAdder addTodo={addTodo} />
         </div>

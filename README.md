@@ -55,3 +55,4 @@ npm create vite@latest .
 - 3108 윤건 2-11 상단고정(pin) ★★ boolean 값, 정렬 로직 
 - 3105 김주람   1-4	font	★	CSS, Google Fonts, theme state
 - 3115 전O진 배경색 ★ useState, CSS class/style 변경
+- 3108 윤건 3-1 추가할 때 맨 위에 표시 하자 ★ addTodo() 수정 && 3-3 전체 삭제 ★ 배열 초기화, comfirm modal
