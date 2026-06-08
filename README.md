@@ -2,8 +2,7 @@
 ## 02_counter
 vanilla HTML, CSS, JavaScript로 만든 Counter
 ---
-## 20260324 React 시작
-```shell
+`shell
 npm create vite@latest .
 ```
 ### CounterApp
@@ -41,4 +40,4 @@ npm create vite@latest .
     <Link to="/"></Link>
 ```
 - `useNavigate()`
-- 3102 김민재 | 2-12 | 완료하면 걸린 시간 알림 | ★★★ | 시작시간/완료시간 저장, 시간 계산
+- 3102 김민재 | 2-12 | 완료하면 걸린 시간 알림 | ★★★ | 시작시간/완료시간 저장, 시간 계산## 20260324 React 시작
