@@ -3,24 +3,34 @@ import './todolist.css'
 import TodoHeader from './components/TodoHeader.jsx'
 import TodoAdder from './components/TodoAdder.jsx'
 import TodoList from './components/TodoList.jsx'
+import { TodoProgress } from './components/TodoProgress.jsx';
+
 
 class Todo {
     constructor(text) {
-        this.id = Date.now();       
-        this.text = text;           
-        this.isCompleted = false;   
+        this.id = Date.now();       //할일 고유 id: 만든시각. new Date().getTime()
+        this.text = text;           //할일 내용
+        this.isCompleted = false;   //완료 여부: 기본값 false
+        this.isPinned = false;
+        this.priority = priority;   //우선순위: 낮은 숫자가 먼저 
         this.completedAt = null;
     }
 }
+
+
 const TODOS_STORAGE_KEY = "todos";
 
 function TodoListApp() {
+    // LocalStorage 에서 저장된 할일 목록 가져오자
+
     const initTodos = () => {
         const savedTodos = localStorage.getItem(TODOS_STORAGE_KEY);
+
         return savedTodos ? JSON.parse(savedTodos) : [];
+        //가져온게 있으면 문자열로 되어 있는 것을 json으로 파싱(해석)하면 객체로 가져올 수 있고, 없으면 빈 리스트
     }
 
-    const [todos, setTodos] = useState(initTodos); 
+    const [todos, setTodos] = useState(initTodos); //할일 목록: 기본값 빈 리스트
     const [keyword, setKeyword] = useState('');
 
     useEffect(() => {
@@ -46,11 +56,22 @@ function TodoListApp() {
         return () => clearInterval(intervalId);
     }, []);
 
-    const addTodo = (text) => setTodos((todos) => [
+    //todos가 바뀌면, LocalStroage에 저장하자 
+    // [](mount할 때 한번 실행), [새앤]에 있는 state가 바뀌면, 그 앞 함수 정의를 호출하자
+    useEffect(() => {
+        localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos));
+    }, [todos]);
+
+
+    const addTodo = (text, priority) => setTodos((todos) => [
+        //이전 todos 복사하자
         ...todos,
-        new Todo(text)
+        //newTodo 만들자
+        //이전 todos에 추가하자
+        new Todo(text, priority)
     ]);
-    
+    // const addTodo = (text) => setTodos((todos) => [...todos, new Todo(text)]);
+
     const toggleTodo = (id) => {
         setTodos((prevTodos) =>
             prevTodos.map((todo) => {
@@ -66,28 +87,50 @@ function TodoListApp() {
             })
         );
     };
-
     const deleteTodo = (id) => {
-        setTodos(
-            (todos) => todos.filter((todo) => todo.id !== id)
+        //id가 같지 않은 todo만 복사하자 (filter())
+        setTodos((todos) =>
+            todos.filter((todo) => todo.id !== id)
         )
-    }
+    };
+
     const editTodo = (id, newText) => {
         setTodos((todos) =>
+            //todos에서 하나씩 todo 꺼내고, id가 같은 todo 찾아서, text를 newText로 수정하자
+            // ...todo 이전 값
+            (todos.map((todo) => todo.id === id ? { ...todo, text: newText } : todo))
+        )
+    }
+    const pinTodo = (id) => {
+        setTodos((todos) =>
             todos.map((todo) =>
-                todo.id === id ? { ...todo, text: newText } : todo
+                todo.id === id ? {...todo, isPinned: !todo.isPinned} : todo
             )
         )
     }
-
+    
+    const [bgColor, setBgColor] = useState(() => {
+        return localStorage.getItem("bgColor") || "#ffffff";
+    });
+    const changeBgColor = (color) => {
+        setBgColor(color);
+        document.body.style.backgroundColor = color;
+        localStorage.setItem("bgColor", color);
+    };
+    useEffect(() => {
+        document.body.style.backgroundColor = bgColor;
+    }, []);
+  
     const filteredTodos = todos.filter((todo) =>
         todo.text.includes(keyword)
     );
+    let sortedTodos = filteredTodos
+    let sortedTodos = [...todos].sort((a, b) => (a.priority ?? 3) - (b.priority ?? 3));
+    sortedTodos = [...sortedTodos].sort((a,b) => Number(!!b.isPinned) - Number(!!a.isPinned));
 
     return (
         <div className="todo">
-            <TodoHeader />
-            
+            <TodoHeader changeBgColor={changeBgColor} currentBgColor={bgColor} />
             <div style={{ margin: '10px 0', textAlign: 'center' }}>
                 <input
                     type="text"
@@ -103,9 +146,9 @@ function TodoListApp() {
                     }}
                 />
             </div>
-
+            <TodoProgress todos={todos} />
+            <TodoList todos={filteredTodos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} editTodo={editTodo} pinTodo={pinTodo} />
             <TodoAdder addTodo={addTodo} />
-            <TodoList todos={filteredTodos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} editTodo={editTodo} />
         </div>
     )
 }

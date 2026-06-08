@@ -21,6 +21,14 @@
     margin-right: 10px;
     flex: 1;    /* flex일 때 남은 공간 다 차지 */
 }
+.todo__priority {
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-right: 10px;
+    background-color: #fff;
+}
 .todo__button {
     padding: 10px;
     border: none;
@@ -52,7 +60,8 @@
     flex-grow: 1;
 }
 .todo__button--edit,
-.todo__button--delete {
+.todo__button--delete,
+.todo__button--pin {
     font-size: 0.8rem;
     padding: 6px;
 }
@@ -60,6 +69,28 @@
     color: #999;
     text-decoration: line-through;
 }
+
+.todo__progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.todo__progress-bar-fill {
+    height: 100%;
+    background-color: #4984e4;
+    border-radius: 5px;
+    animation: progressFill 1s ease-in-out forwards;
+}   
+
+.todo__progress {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    margin: 10px;
+}
+
 
 /* .todo__item--complete 밑에 .todo__label을 흐리게, 취소선하자
 
