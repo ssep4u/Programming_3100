@@ -29,7 +29,7 @@ export default function Background() {
 
                     <button
                         className="b"
-                        onClick={() => setBgColor("black")}
+                        onClick={() => setBgColor("black")} 
                     >
                         검은색
                     </button>
